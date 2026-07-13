@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ATLUS NEWS</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles/base.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>ATLUS NEWS</h1>
+    <p>Pythonで取得したニュース一覧</p>
+</header>
+
+<main>
+
+{% for item in news %}
+
+<div class="news-card">
+    {% if item.image %}
+    <img class="news-image"
+        src="{{ item.image }}"
+        alt="{{ item.title }}">
+    {% endif %}
+
+    {% if item.game %}
+    <div class="game-title">
+        {{ item.game }}
+    </div>
+    {% endif %}
+
+    <h2 class="news-title">
+        {{ item.title }}
+    </h2>
+
+    <div class="news-info">
+        <span>📅 {{ item.date }}</span>
+        <span>🏷 {{ item.category }}</span>
+    </div>
+
+    <a class="news-link"
+       href="{{ item.url }}"
+       target="_blank">
+       記事を見る
+    </a>
+
+</div>
+
+{% endfor %}
+
+</main>
+
+<footer>
+
+2026 情報実験 Webスクレイピング課題
+
+</footer>
+
+</body>
+</html>
