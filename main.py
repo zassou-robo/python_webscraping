@@ -26,14 +26,6 @@ if category:
     category = category.text.strip()
 else:
     category = "なし"
-
-# print("=================")
-# print(title)
-# print(date)
-# print(game)
-# print(category)
-# print(url)
-# print("=================")
 news_data = []
 for news in news_list:
     title = news.find("span", class_="headline").text.strip()
@@ -46,15 +38,23 @@ for news in news_list:
     category = category.text.strip() if category else ""
 
     url = news.find("a")["href"]
+    image = news.find("img")
+    if image:
+        image = image["src"]
+    else:
+        image = ""
 
     news_data.append({
         "title": title,
         "date": date,
         "game": game,
         "category": category,
-        "url": url
+        "url": url,
+        "image":image
     })
 
 print(news_data)
-with open("data/news.json", "w", encoding="utf-8") as f:
+with open("page_data/atlus.html", "w", encoding="utf-8") as f:
+    f.write(soup.prettify())
+with open("page_data/news.json", "w", encoding="utf-8") as f:
     json.dump(news_data, f, ensure_ascii=False, indent=4)
